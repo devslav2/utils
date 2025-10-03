@@ -23,6 +23,7 @@
         "vite": "^3.0.0"
     },
     "dependencies": {
+        "@heroicons/react": "^2.2.0",
         "@prettier/plugin-php": "^0.19.4",
         "@tinymce/tinymce-react": "^4.1.0",
         "fs-extra": "^10.1.0",

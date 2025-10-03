@@ -60,6 +60,16 @@ class User extends Authenticatable
         return $this->user_type === 'hr-representative';
     }
 
+    public function isRecruiter()
+    {
+        return $this->user_type === 'recruiter';
+    }
+
+    public function isCandidate()
+    {
+        return $this->user_type === 'candidate';
+    }
+
 
     /**
      * Relationship to Jobs

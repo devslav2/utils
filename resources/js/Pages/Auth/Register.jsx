@@ -12,6 +12,7 @@ export default function Register() {
         email: "",
         password: "",
         password_confirmation: "",
+        user_type: "",
     });
 
     useEffect(() => {
@@ -69,6 +70,26 @@ export default function Register() {
                         handleChange={onHandleChange}
                         required
                     />
+                </div>
+
+                <div className="mt-4">
+                    <Label forInput="user_type" value="Seleziona il ruolo" />
+
+                    <select
+                        name="user_type"
+                        value={data.user_type}
+                        onChange={onHandleChange}
+                        className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        required
+                    >
+                        <option value="">-- Seleziona --</option>
+                        <option value="candidate">Candidato</option>
+                        <option value="recruiter">Recruiter</option>
+                    </select>
+
+                    {errors.user_type && (
+                        <div className="text-red-600 text-sm mt-1">{errors.user_type}</div>
+                    )}
                 </div>
 
                 <div className="mt-4">
