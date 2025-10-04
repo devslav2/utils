@@ -21,7 +21,7 @@ export default function Navbar({ auth, scroll }) {
                     <div className="hidden md:flex items-center space-x-4">
                         {!auth?.user && (
                             <>
-                                <Link href={route("login")} className="text-blue-500 hover:underline">Login</Link>
+                                <Link href={route("login")} className="text-blue-500 hover:underline">Login test deploy</Link>
                                 <Link href={route("register")} className="text-blue-500 hover:underline">Registrati</Link>
                             </>
                         )}
