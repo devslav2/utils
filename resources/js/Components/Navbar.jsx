@@ -22,7 +22,7 @@ export default function Navbar({ auth, scroll }) {
                         {!auth?.user && (
                             <>
                                 <Link href={route("login")} className="text-blue-500 hover:underline">Login</Link>
-                                <Link href={route("register")} className="text-blue-500 hover:underline">Registrati</Link>
+                                <Link href={route("register")} className="text-blue-500 hover:underline">Registrati2</Link>
                             </>
                         )}
                         {auth?.user && (
