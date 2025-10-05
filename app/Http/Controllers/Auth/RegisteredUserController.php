@@ -52,6 +52,8 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(RouteServiceProvider::HOME);
+        //OLD return redirect(RouteServiceProvider::HOME);
+        // Reindirizza alla pagina di verifica
+        return redirect()->route('verification.notice');
     }
 }

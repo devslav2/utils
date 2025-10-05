@@ -4,6 +4,8 @@ use App\Http\Controllers\Front\HomepageController;
 use App\Http\Controllers\Front\JobDetailsController;
 use App\Http\Controllers\Front\StoreJobApplicationController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +22,12 @@ Route::any('/', HomepageController::class)->name('homepage');
 Route::get('position/{job}', JobDetailsController::class)->name('jobDetails');
 Route::post('position/{job}/store-application', [StoreJobApplicationController::class, 'store'])->name('storeJobApplication');
 Route::get('application/{job}', [StoreJobApplicationController::class, 'applicationReceived'])->name('jobApplicationReceived');
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard');
+});
+
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';
