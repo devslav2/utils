@@ -5,7 +5,7 @@ use App\Http\Controllers\Front\JobDetailsController;
 use App\Http\Controllers\Front\StoreJobApplicationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
-
+use App\Services\MessageQueueService;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +28,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('dashboard');
 });
 
+Route::get('/send', function (MessageQueueService $producer) {
+    $message = json_encode([
+        'user_id' => 12,
+        'new_email' => 'nuovo@email.com',
+        'name' => 'Mario Kafka'
+    ]);
+
+    $producer->send($message);
+
+    return "Messaggio inviato!";
+});
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';
