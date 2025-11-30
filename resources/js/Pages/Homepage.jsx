@@ -26,7 +26,7 @@ export default function Homepage({
                             {t("LaraBoard Careers", lang)}
                         </h1>
                         <h2 className="text-2xl mt-10 text-zinc-700 leading-snug">
-                            {t("Check our available positions 99 - we are always looking for great people to join our company", lang)}
+                            {t("Check our available positions - we are always looking for great people to join our company", lang)}
                         </h2>
                     </div>
                     <div className="md:w-3/3 pt-10 lg:pt-0">
