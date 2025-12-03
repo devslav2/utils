@@ -20,3 +20,6 @@ yarn-error.log
 /public/tinymce/
 tags
 *.swp
+# Docker
+docker/
+docker-compose.yml
