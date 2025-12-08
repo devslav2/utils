@@ -4,7 +4,7 @@ import ApplicationLogo from '@/Components/ApplicationLogo';
 
 export default function Navbar({ auth, scroll }) {
     const [mobileOpen, setMobileOpen] = useState(false);
-
+console.log(auth);
     return (
         <nav className={scroll ? "bg-white shadow-md fixed inset-x-0 z-20" : "navi-bar fixed inset-x-0 z-20"}>
             <div className="max-w-screen-xl mx-auto px-3">

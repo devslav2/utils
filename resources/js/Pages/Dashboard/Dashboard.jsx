@@ -6,6 +6,8 @@ import TableTd from "@/Components/TableTd";
 import StatusSpan from "@/Components/StatusSpan";
 import JobApplicationFilters from "@/Components/JobApplicationFilters";
 import Pagination from "@/Components/Pagination";
+import CandidateSection from '@/Components/CandidateSection';
+
 
 export default function Dashboard(props) {
     const applications = props.applications;
@@ -14,6 +16,11 @@ export default function Dashboard(props) {
     const myPostedJobs = props.myPostedJobs;
     const queryFilters = props.queryFilters;
 
+    if (props.auth.user.user_type == 'candidate')
+        return (
+            <CandidateSection user={props.auth.user} />
+        );
+ 
     return (
         <Authenticated
             auth={props.auth}

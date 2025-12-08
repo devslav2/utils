@@ -44,5 +44,10 @@ Route::get('/send', function (MessageQueueService $producer) {
     return "Messaggio inviato!";
 });
 
+Route::get('/debug-test', function () {
+    $var = 'Hello Xdebug!';
+    return $var;
+});
+
 require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';
