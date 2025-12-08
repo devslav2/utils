@@ -6,6 +6,7 @@ use App\Events\JobApplicationReceivedEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreJobApplicationRequest;
 use App\Models\Job;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class StoreJobApplicationController extends Controller
@@ -20,6 +21,8 @@ class StoreJobApplicationController extends Controller
 
         // append coverLetter
         $validated["cover_letter"] = request("coverLetter");
+
+        $validated['user_id'] = Auth::id();
 
         // create job application
         $application = $job->applications()->create($validated);

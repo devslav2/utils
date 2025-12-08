@@ -22,11 +22,11 @@ import { usePage } from "@inertiajs/inertia-react";
 
 export default function Front({ children }) {
     const scroll = useScroll();
-    const { flash } = usePage().props; // prende i flash messages da Inertia
+    const { auth, flash } = usePage().props; // prende i flash messages da Inertia
 
     return (
         <div className="flex flex-col min-h-screen bg-zinc-50">
-            <Navbar scroll={scroll} />
+            <Navbar scroll={scroll} auth={auth} />
 
             {/* Mostra messaggi flash */}
             <div className="max-w-7xl mx-auto mt-4 px-3">

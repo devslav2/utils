@@ -21,6 +21,7 @@ class JobApplication extends Model
         'cover_letter',
         'resume',
         'status',
+        'user_id',
     ];
 
     public function job()
@@ -28,12 +29,23 @@ class JobApplication extends Model
         return $this->belongsTo(Job::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function scopeOnMyJobs($query) {
         if(auth()->user()->isAdmin()) {
             return $query;
         }
-        return $query->whereHas('job', function($query) {
-            $query->where('jobs.user_id', auth()->id());
+        if(auth()->user()->isRecruiter()) {
+            return $query->whereHas('job', function($query) {
+                $query->where('jobs.user_id', auth()->id());
+            });
+        }
+
+        return $query->whereHas('user', function($query) {
+            $query->where('users.id', auth()->id());
         });
 
     }

@@ -1,6 +1,16 @@
 # Usa un'immagine PHP con Apache preconfigurato
 FROM php:8.2-apache
 
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
+# Configurazione Xdebug
+RUN echo "zend_extension=xdebug.so" > /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.mode=debug" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.start_with_request=trigger" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.client_host=172.23.55.206" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini \
+    && echo "xdebug.client_port=9003" >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+
 # Installa le dipendenze di sistema necessarie (libpng, libjpeg, ecc.)
 RUN apt-get update && apt-get install -y \
     libpng-dev \
@@ -16,6 +26,9 @@ RUN apt-get update && apt-get install -y \
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd \
     && docker-php-ext-install pdo pdo_pgsql pgsql
+
+RUN apt-get update && apt-get install -y libxml2-dev \
+    && docker-php-ext-install dom
 
 # Abilita il modulo Apache mod_rewrite (necessario per Laravel)
 RUN a2enmod rewrite
