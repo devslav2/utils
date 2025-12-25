@@ -5,6 +5,7 @@ use App\Http\Controllers\Front\JobDetailsController;
 use App\Http\Controllers\Front\StoreJobApplicationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Dashboard\JobController;
 use App\Services\MessageQueueService;
 
 /*
@@ -30,6 +31,9 @@ Route::get('application/{job}', [StoreJobApplicationController::class, 'applicat
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
+
+    Route::get('/jobs', [JobController::class, 'index'])
+        ->name('jobs');
 });
 
 Route::get('/send', function (MessageQueueService $producer) {
