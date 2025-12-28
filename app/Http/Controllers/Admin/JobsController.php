@@ -141,7 +141,7 @@ class JobsController extends Controller
         $listing['history'] = [
             'status' => "", // da calcolare in base al valore degli status dei candidates
             'updated_at' => now(),
-            'candidates' => [][], // array (json) di candidati
+            'candidates' => [], // array (json) di candidati
         ];
 
         // update job
