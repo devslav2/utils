@@ -82,6 +82,13 @@ class JobsController extends Controller
         $listing["key_responsibilities"] = request("key_responsibilities");
         $listing["skills_and_experience"] = request("skills_and_experience");
         $listing["expires_at"] = request("expires_at");
+        
+        $listing['history'] = $job->history ?? [];
+        $listing['history'] = [
+            'status' => "open",
+            'updated_at' => now(),
+            'candidates' => [], // oppure solo i campi modificati
+        ];
 
         // create job
         auth()
@@ -129,6 +136,13 @@ class JobsController extends Controller
         $listing["key_responsibilities"] = request("key_responsibilities");
         $listing["skills_and_experience"] = request("skills_and_experience");
         $listing["expires_at"] = request("expires_at");
+
+        $listing['history'] = $job->history ?? [];
+        $listing['history'] = [
+            'status' => "", // da calcolare in base al valore degli status dei candidates
+            'updated_at' => now(),
+            'candidates' => [][], // array (json) di candidati
+        ];
 
         // update job
         $job->update($listing);

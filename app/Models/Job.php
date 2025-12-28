@@ -10,6 +10,7 @@ use Spatie\Sluggable\SlugOptions;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Traits\UsesJsonbMergePatch;
 
 class Job extends Model
 {
@@ -17,6 +18,7 @@ class Job extends Model
     use HasSlug;
     use HumanDate;
     use SoftDeletes;
+    use UsesJsonbMergePatch;
 
     protected $fillable = [
         "job_title",
@@ -33,9 +35,16 @@ class Job extends Model
         "expires_at",
         "updated_at",
         "deleted_at",
+        "history",
     ];
 
     protected $appends = ["isExpired", "humanCreatedAt"];
+
+    protected $casts = [
+        'history' => 'array',
+    ];
+    
+    protected $jsonbColumns = ['history'];
 
     public function getSlugOptions(): SlugOptions
     {
