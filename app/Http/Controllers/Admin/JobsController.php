@@ -82,10 +82,14 @@ class JobsController extends Controller
         $listing["key_responsibilities"] = request("key_responsibilities");
         $listing["skills_and_experience"] = request("skills_and_experience");
         $listing["expires_at"] = request("expires_at");
+
+        $status = now()->gt(\Illuminate\Support\Carbon::parse($listing["expires_at"])) 
+        ? "closed" 
+        : "open";
         
         $listing['history'] = $job->history ?? [];
         $listing['history'] = [
-            'status' => "open",
+            'status' => $status,
             'updated_at' => now(),
             'candidates' => [], // oppure solo i campi modificati
         ];
@@ -137,9 +141,13 @@ class JobsController extends Controller
         $listing["skills_and_experience"] = request("skills_and_experience");
         $listing["expires_at"] = request("expires_at");
 
+        $status = now()->gt(\Illuminate\Support\Carbon::parse($listing["expires_at"])) 
+        ? "closed" 
+        : "open";
+
         $listing['history'] = $job->history ?? [];
         $listing['history'] = [
-            'status' => "", // da calcolare in base al valore degli status dei candidates
+            'status' => $status, // da calcolare in base al valore degli status dei candidates
             'updated_at' => now(),
             'candidates' => [], // array (json) di candidati
         ];
