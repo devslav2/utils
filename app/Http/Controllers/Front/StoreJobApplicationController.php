@@ -6,12 +6,13 @@ use App\Events\JobApplicationReceivedEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreJobApplicationRequest;
 use App\Models\Job;
+use App\Services\JobService;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class StoreJobApplicationController extends Controller
 {
-    public function store(StoreJobApplicationRequest $request, Job $job)
+    public function store(StoreJobApplicationRequest $request, Job $job, JobService $jobService)
     {
         // get validated fields
         $validated = $request->validated();
@@ -26,6 +27,14 @@ class StoreJobApplicationController extends Controller
 
         // create job application
         $application = $job->applications()->create($validated);
+
+        $job_update = array(
+            "job" => $job,
+            "user_id" => Auth::id(),
+            "status" => "new",
+        );
+
+        $jobService->create($job_update);
 
         // fire events
         event(new JobApplicationReceivedEvent($application));
