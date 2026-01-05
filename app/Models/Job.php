@@ -36,12 +36,16 @@ class Job extends Model
         "updated_at",
         "deleted_at",
         "history",
+        'manually_closed',
+        'max_hires',
     ];
 
     protected $appends = ["isExpired", "humanCreatedAt"];
 
     protected $casts = [
         'history' => 'array',
+        'manually_closed' => 'boolean',
+        'expires_at'      => 'datetime',
     ];
     
     protected $jsonbColumns = ['history'];

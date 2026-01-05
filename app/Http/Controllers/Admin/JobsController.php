@@ -140,6 +140,8 @@ class JobsController extends Controller
         $listing["key_responsibilities"] = request("key_responsibilities");
         $listing["skills_and_experience"] = request("skills_and_experience");
         $listing["expires_at"] = request("expires_at");
+        $listing["manually_closed"] = request("manually_closed");
+        $listing["max_hires"] = request("max_hires");
 
         $status = now()->gt(\Illuminate\Support\Carbon::parse($listing["expires_at"])) 
         ? "closed" 

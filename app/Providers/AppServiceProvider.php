@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 
 use Inertia\Inertia;
+use App\Models\Job;
+use App\Observers\JobObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,5 +35,7 @@ class AppServiceProvider extends ServiceProvider
                 ];
             },
         ]);
+
+        Job::observe(JobObserver::class);
     }
 }
