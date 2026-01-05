@@ -26,7 +26,7 @@ class JobObserver
      */
     public function updated(Job $job)
     {
-        //
+        app(JobService::class)->recalculateStatus($job);
     }
 
     /**

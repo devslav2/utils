@@ -9,29 +9,25 @@ class JobService
 {
     public function create(array $data)
     {
-        //dd($data);
-        $job = $data['job'];
+        $job = Job::findOrFail($data['job_id']);
         // logica di business
-        $listing['history'] = $job->history ?? [];
-        $listing['history'] = [
-            'status' => $this->calculateStatus($job->history, $data['status']), // da calcolare in base al valore degli status dei candidates
-            'updated_at' => now(),
-            'candidates' => [
-                $data['user_id'] => ["status" => $data['status'], "job" => $job->job_title]
-            ], // array (json) di candidati
+        $history = $job->history ?? [];
+        $candidates = $history['candidates'] ?? [];
+
+        // Aggiorna o aggiungi candidato
+        $candidates[$data['user_id']] = [
+            'status' => $data['status'],
+            'job'    => $job->job_title,
         ];
         
+        $history['updated_at'] = now();
+        $history['candidates'] = $candidates;
+
         // validazioni avanzate
         // chiamate a model / repository
-        $job->update($listing);
-    }
-
-    private function calculateStatus(array $data, string $input_status): string
-    {
-        // logica di calcolo
-        $status = "open";
-
-        return $status;
+        $job->update([
+            'history' => $history,
+        ]);
     }
 
     public function recalculateStatus(Job $job): void

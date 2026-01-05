@@ -29,7 +29,7 @@ class StoreJobApplicationController extends Controller
         $application = $job->applications()->create($validated);
 
         $job_update = array(
-            "job" => $job,
+            "job_id" => $job->id,
             "user_id" => Auth::id(),
             "status" => "new",
         );
