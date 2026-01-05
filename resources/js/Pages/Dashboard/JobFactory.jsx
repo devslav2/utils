@@ -24,6 +24,8 @@ export default function CreateJob(props) {
         location_id: job?.location_id || "",
         contract_type_id: job?.contract_type_id || "",
         expires_at: job?.expires_at || "",
+        manually_closed: job?.manually_closed ?? false,
+        max_hires: job?.max_hires ?? "",
         cancelToken: null,
     });
 
@@ -206,9 +208,8 @@ export default function CreateJob(props) {
                                             )}
                                         />
                                     </div>
-                                </div>
-
-                                <div className="md:flex md:items-center">
+                                </div>           
+                                {/* <div className="md:flex md:items-center">
                                     <div className="w-full">
                                         <Label
                                             forInput="location_id"
@@ -249,6 +250,87 @@ export default function CreateJob(props) {
                                                     e.target.name,
                                                     e.target.value
                                                 )
+                                            }
+                                        />
+                                    </div>
+                                </div>  */}               
+                                <div class="md:flex md:items-end md:gap-5">
+                                    <div class="w-full md:w-1/3">
+                                        <Label
+                                            forInput="location_id"
+                                            value="Location"
+                                            className="mt-4 text-lg"
+                                        />
+                                        <Select
+                                            className="z-[9990] w-full"
+                                            isClearable={true}
+                                            isSearchable={true}
+                                            onChange={(e) =>
+                                                setData("location_id", e.id)
+                                            }
+                                            getOptionLabel={(loc) =>
+                                                loc.location_name
+                                            }
+                                            getOptionValue={(loc) => loc.id}
+                                            options={locations}
+                                            defaultValue={locations.filter(
+                                                (loc) =>
+                                                    loc.id === data.location_id
+                                            )}
+                                        />
+                                    </div>
+                                    <div class="w-full md:w-1/3">
+                                        <Label
+                                            forInput="expires_at"
+                                            value="Expires At (Optional)"
+                                            className="mt-4 text-lg"
+                                        />
+                                        <Input
+                                            name="expires_at"
+                                            type="date"
+                                            value={data.expires_at}
+                                            handleChange={(e) =>
+                                                setData(
+                                                    e.target.name,
+                                                    e.target.value
+                                                )
+                                            }
+                                        />
+                                    </div>
+                                    <div class="w-full md:w-1/3 mt-4 md:mt-0">
+                                        <label class="block font-medium text-sm text-gray-700 text-lg">
+                                            &nbsp;
+                                        </label>
+                                        <label class="flex items-center space-x-2">
+                                            <input
+                                                type="checkbox"
+                                                name="manually_closed"
+                                                className="rounded border-gray-300 text-indigo-600 shadow-sm"
+                                                checked={data.manually_closed}
+                                                onChange={(e) =>
+                                                    setData("manually_closed", e.target.checked)
+                                                }
+                                            />
+                                            <span class="text-gray-700 text-lg">
+                                                Close this job manually
+                                            </span>
+                                        </label>
+                                    </div>
+
+                                </div>
+                                <div class="md:flex md:items-center mt-6">
+                                    <div class="w-full md:w-1/3">
+                                        <label class="block font-medium text-sm text-gray-700 text-lg">
+                                            Maximum number of hires (optional)
+                                        </label>
+                                        <input
+                                            type="number"
+                                            name="max_hires"
+                                            min="1"
+                                            className="w-full border-gray-300 rounded-md shadow-sm"
+                                            value={data.max_hires}
+                                            onChange={(e) =>
+                                                setData("max_hires", e.target.value)
                                             }
                                         />
                                     </div>
